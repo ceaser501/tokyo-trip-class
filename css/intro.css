@@ -1,0 +1,110 @@
+:root{
+  --navy:#0a1433; --navy2:#13245c; --ink:#0f1e4a; --sky:#5aa8e6; --sun:#ffb27a; --red:#e8483b;
+  --paper:#f1f1f6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--navy);color:#fff;font-family:"Noto Sans KR",system-ui,sans-serif;overflow:hidden}
+.serif{font-family:"Noto Serif KR",serif;font-weight:300}
+b{font-weight:700}
+
+#stage{position:fixed;inset:0}
+.scene{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity 1s ease,visibility 0s 1s;overflow:hidden}
+.scene.on{opacity:1;visibility:visible;transition:opacity 1s ease}
+
+.corner{position:absolute;top:22px;font:500 11px/1 "DM Mono",monospace;letter-spacing:.2em;color:#9fb0d8;opacity:.8;z-index:3}
+.corner.tl{left:24px}.corner.tr{right:24px}
+.corner.dark{color:#0f2e5c}
+.copy{position:absolute;left:8vw;top:30%;z-index:4;max-width:84vw}
+.sub{margin-top:14px;font:400 11px "DM Mono",monospace;letter-spacing:.32em;color:#c7cfe6;opacity:0;transition:opacity 1s 1.8s}
+.sub.dark{color:#16407a;opacity:1;transition:none}
+.on .sub{opacity:.8}
+
+/* 1. horizon */
+.s-horizon{background:linear-gradient(#050a1f 0%,#0d1a48 52%,#1a2350 60%,#0b1030 100%)}
+.horizon{position:absolute;left:50%;top:60%;height:1px;width:0;background:linear-gradient(90deg,transparent,#ffe2c4,transparent);transform:translateX(-50%);transition:width 2.2s cubic-bezier(.6,0,.2,1)}
+.on .horizon{width:100%}
+.sky-glow{position:absolute;left:50%;top:60%;width:120vw;height:70vh;transform:translate(-50%,-50%) scale(.4);background:radial-gradient(ellipse at 70% 50%,rgba(255,178,122,.85),rgba(255,120,80,.25) 25%,transparent 55%);opacity:0;transition:opacity 3s 1s,transform 5s 1s ease-out}
+.on .sky-glow{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.clouds-dark{position:absolute;left:0;right:0;top:60%;bottom:0;background:
+  radial-gradient(ellipse 40% 30% at 20% 30%,rgba(120,110,140,.35),transparent 70%),
+  radial-gradient(ellipse 50% 40% at 75% 50%,rgba(140,110,120,.3),transparent 70%),
+  radial-gradient(ellipse 60% 50% at 45% 90%,rgba(60,60,100,.5),transparent 70%);
+  animation:drift 30s linear infinite}
+@keyframes drift{to{background-position:-200px 0,-300px 0,-150px 0}}
+.s-horizon h1{font-size:clamp(26px,4.6vw,56px);line-height:1.45}
+.type .caret{display:inline-block;width:2px;height:.9em;background:#fff;margin-left:4px;vertical-align:-.08em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* 2. board */
+.s-board{background:radial-gradient(ellipse at 50% 40%,#16296a,#0a1433 70%);display:grid;place-items:center}
+.board{width:min(1000px,92vw)}
+.board header{display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid #8ea4d8;padding-top:12px;font:500 clamp(12px,1.5vw,18px) "DM Mono",monospace;letter-spacing:.18em}
+.board header em{font-style:normal;color:#66b6ff;font-family:"Noto Sans KR";font-size:.8em;margin-left:6px}
+.board .muted{color:#8ea4d8;font-size:.6em}
+.cols,.row{display:grid;grid-template-columns:5ch 6ch 1fr 9ch;gap:2ch}
+.cols{margin:14px 0 6px;font:400 9px "DM Mono",monospace;letter-spacing:.2em;color:#6d83bb}
+.rows{min-height:40vh}
+.row{font:500 clamp(14px,2.6vw,30px)/1.6 "DM Mono",monospace;letter-spacing:.22em;white-space:nowrap}
+.row .cell{display:flex}
+.flap{display:inline-block;width:1ch;text-align:center;background:linear-gradient(#1a2e6e 49%,#0c1a48 51%);margin-right:2px;border-radius:2px;color:#f2f5ff}
+.flap.blank{color:transparent}
+.row .st.board{color:#66b6ff}
+.board-msg{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:40vh;gap:10px;font:500 clamp(14px,2.4vw,26px) "DM Mono",monospace;letter-spacing:.3em}
+.board-msg .ko{font-family:"Noto Sans KR";font-weight:700;letter-spacing:.4em}
+
+/* 3. globe */
+.s-globe{background:radial-gradient(circle at 62% 50%,#13256a,#060c27 70%)}
+#globe{position:absolute;inset:0;width:100%;height:100%}
+.copy.left{top:36%}
+.eyebrow{font:400 10px "DM Mono",monospace;letter-spacing:.2em;color:#8fb6ff;margin-bottom:12px}
+.s-globe h2{font-size:clamp(22px,3.4vw,40px);line-height:1.5}
+.route{margin-top:22px;font:500 12px "DM Mono",monospace;letter-spacing:.18em;display:flex;gap:16px;align-items:center}
+.route span{color:#8fb6ff}
+
+/* 4. sky */
+.s-sky{background:linear-gradient(160deg,#79bdf2,#3f8fdb 70%,#2f7ccc)}
+.cloud{position:absolute;border-radius:50%;filter:blur(18px);background:radial-gradient(circle,rgba(255,255,255,.95),rgba(255,255,255,0) 70%);animation:float 9s ease-in-out infinite alternate}
+.c1{width:40vw;height:28vw;left:-8vw;top:20%}
+.c2{width:34vw;height:26vw;right:-6vw;top:46%;animation-delay:-3s}
+.c3{width:24vw;height:16vw;left:40%;top:-6%;opacity:.7}
+.c4{width:30vw;height:20vw;left:20%;bottom:-10%;opacity:.8;animation-delay:-6s}
+@keyframes float{to{transform:translate(4vw,-3vh)}}
+.plane{position:absolute;width:min(46vw,520px);right:6vw;top:10%;overflow:visible;transform:translate(30vw,40vh) scale(.6);transition:transform 3.5s cubic-bezier(.2,.7,.2,1)}
+.on .plane{transform:translate(0,0) scale(1)}
+.plane path[stroke]{stroke-linecap:round}
+.words{top:24%;color:var(--ink)}
+.word{font-size:clamp(34px,6vw,72px);font-weight:900;letter-spacing:-.02em}
+.word .thin{font-weight:300}
+#word{display:inline-block;transition:opacity .4s,transform .4s}
+#word.out{opacity:0;transform:translateY(12px)}
+
+/* 5. end */
+.s-end{background:radial-gradient(circle,#fff,var(--paper) 60%);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:16px}
+.logo{display:flex;align-items:center;gap:18px;transform:scale(.9);opacity:0;transition:all 1.2s .2s}
+.on .logo{transform:none;opacity:1}
+.mark{width:clamp(56px,9vw,92px)}
+.draw{stroke-dasharray:120;stroke-dashoffset:120;transition:stroke-dashoffset 1.6s .6s ease}
+.on .draw{stroke-dashoffset:0}
+.wordmark{text-align:left}
+.wordmark strong{display:block;font:700 clamp(28px,5vw,52px)/1 "Noto Sans KR";letter-spacing:.12em}
+.wordmark span{display:block;margin-top:8px;font-size:12px;letter-spacing:.3em;color:#5c6890}
+.rule{width:min(380px,70vw);height:1px;background:#9aa4c4;transform:scaleX(0);transition:transform 1.2s 1s}
+.on .rule{transform:scaleX(1)}
+.tagline,.tagline-ko,.start{opacity:0;transition:opacity 1s 1.6s}
+.on .tagline,.on .tagline-ko,.on .start{opacity:1}
+.tagline{font-size:18px;font-weight:400}
+.tagline-ko{font-size:12px;color:#5c6890;letter-spacing:.2em}
+.start{margin-top:22px;padding:14px 30px;border-radius:999px;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;letter-spacing:.04em;box-shadow:0 10px 30px rgba(15,30,74,.25);transition:opacity 1s 1.6s,transform .2s}
+.start:hover{transform:translateY(-2px)}
+
+.skip{position:fixed;right:20px;bottom:20px;z-index:10;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.35);padding:9px 16px;border-radius:999px;font:500 13px "Noto Sans KR";cursor:pointer;backdrop-filter:blur(6px)}
+.skip.light{color:var(--ink);border-color:rgba(15,30,74,.3);background:rgba(15,30,74,.05)}
+
+@media (max-width:600px){
+  .copy{left:16px;right:16px;max-width:none}
+  .cols,.row{grid-template-columns:5ch 1fr;gap:1.2ch}
+  .cols span:nth-child(2),.cols span:nth-child(4),.row .fl,.row .st{display:none}
+  .plane{width:80vw;right:-10vw;top:38%}
+  .logo{flex-direction:column;gap:12px}.wordmark{text-align:center}
+}
+.board-msg .ko .flap{width:1.3em}

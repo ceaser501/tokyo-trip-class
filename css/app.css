@@ -1,0 +1,79 @@
+:root{
+  --bg:#f4f5fa; --card:#fff; --ink:#0f1e4a; --muted:#66708f; --line:#e1e4ee;
+  --accent:#0f1e4a; --red:#e8483b; --soft:#eaf0ff;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#0b1024; --card:#141b38; --ink:#e9ecf8; --muted:#97a0c0; --line:#253056; --accent:#6f9bff; --soft:#1c2850}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 "Noto Sans KR",system-ui,sans-serif;padding-bottom:84px}
+h2{font-size:22px;margin:4px 0 14px}h2 small{font-size:13px;color:var(--muted);font-weight:400;margin-left:6px}
+.top{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px)}
+.brand{display:flex;align-items:center;gap:8px;font:700 15px "Noto Sans KR";letter-spacing:.12em;color:var(--ink);text-decoration:none}
+.brand svg{width:26px}
+.who{font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:center}
+.banner{margin:0 16px 8px;padding:10px 14px;border-radius:12px;background:#fff6e0;color:#6b4c00;font-size:13px}
+@media (prefers-color-scheme:dark){.banner{background:#3a2f10;color:#ffe3a1}}
+.panel{max-width:720px;margin:0 auto;padding:8px 16px 24px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+input,textarea{width:100%;font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+textarea{resize:vertical}
+.btn{border:0;border-radius:12px;padding:11px 16px;font:700 14px "Noto Sans KR";cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none}
+.btn.primary{background:var(--accent);color:#fff}
+@media (prefers-color-scheme:dark){.btn.primary{color:#0b1024}}
+.btn.ghost{background:var(--soft);color:var(--ink)}
+.btn.small{padding:6px 10px;font-size:12px;border-radius:9px}
+.btn.wide{width:100%;margin-top:10px}
+.btn:disabled{opacity:.5}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;font:13px "Noto Sans KR";cursor:pointer}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:12px}
+.result .ja{font:700 24px/1.5 "Noto Sans JP",sans-serif;word-break:keep-all}
+.result .read{color:var(--muted);margin:4px 0 12px}
+.menu-line{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.menu-line:last-child{border:0}
+.menu-line .jp{font-family:"Noto Sans JP"}
+.menu-line .price{font:500 13px "DM Mono",monospace;color:var(--muted)}
+.hint{font-size:13px;color:var(--muted)}
+.login{max-width:440px;margin-top:10vh}
+
+.days{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px}
+.days .chip{flex:none}
+.map{height:300px;border-radius:16px;overflow:hidden;background:var(--soft);border:1px solid var(--line);margin-bottom:12px}
+.map-empty{height:100%;display:grid;place-items:center;text-align:center;color:var(--muted);font-size:13px;padding:16px}
+.add{display:grid;grid-template-columns:110px 1fr 1fr auto;gap:8px;margin-bottom:12px}
+#addFav.add{grid-template-columns:1fr 1fr auto}
+.list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.item{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
+.num{flex:none;width:28px;height:28px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font:700 13px "DM Mono"}
+.item .body{flex:1;min-width:0}
+.item .name{font-weight:700}
+.item .meta{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item .acts{display:flex;gap:4px;flex:none}
+.icon{border:0;background:none;color:var(--muted);font-size:16px;cursor:pointer;padding:4px 6px;border-radius:8px}
+.icon:hover{background:var(--soft);color:var(--ink)}
+.empty{color:var(--muted);text-align:center;padding:24px;font-size:14px}
+.pin{width:28px;height:28px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--red);border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);display:grid;place-items:center}
+.pin b{transform:rotate(45deg);color:#fff;font:700 12px "DM Mono"}
+
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;display:grid;grid-template-columns:repeat(3,1fr);background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.tabs button{border:0;background:none;color:var(--muted);padding:10px 0 12px;font:500 12px "Noto Sans KR";display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer}
+.tabs button span{font-size:18px;line-height:1.2}
+.tabs button.on{color:var(--accent);font-weight:700}
+
+.show{position:fixed;inset:0;z-index:20;background:#fff;color:#111;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;font:700 clamp(32px,8vw,72px)/1.4 "Noto Sans JP";cursor:pointer}
+.show small{font:400 14px "Noto Sans KR";color:#888;margin-top:24px}
+dialog{border:0;border-radius:18px;padding:20px;background:var(--card);color:var(--ink);width:min(360px,90vw)}
+dialog::backdrop{background:rgba(5,10,30,.5)}
+dialog h3{margin:0 0 12px}
+.toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);background:#0f1e4a;color:#fff;padding:10px 16px;border-radius:999px;font-size:13px;opacity:0;transition:.25s;pointer-events:none;z-index:30}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:600px){
+  .add{grid-template-columns:96px 1fr;}
+  .add #plMemo{grid-column:1/-1}
+  .add .btn{grid-column:1/-1}
+  #addFav.add{grid-template-columns:1fr}
+  .map{height:240px}
+}

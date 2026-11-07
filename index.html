@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tokyo Trip</title>
+  <meta name="description" content="도쿄 여행 노트 — 번역, 일정, 즐겨찾기" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&family=Noto+Serif+KR:wght@300;400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/intro.css" />
+</head>
+<body>
+  <main id="stage" aria-label="인트로 영상">
+
+    <!-- 1. 새벽 수평선 -->
+    <section class="scene s-horizon" data-scene="1">
+      <div class="corner tl">ICN&nbsp;&nbsp;SEOUL · INCHEON</div>
+      <div class="corner tr">37°27′N&nbsp;&nbsp;126°26′E</div>
+      <div class="sky-glow"></div>
+      <div class="horizon"></div>
+      <div class="clouds-dark"></div>
+      <div class="copy">
+        <h1 class="serif type" data-text="모든 여행은|<b>한 장의 계획</b>에서 시작됩니다."></h1>
+        <p class="sub">EVERY TRIP BEGINS WITH A SINGLE PLAN</p>
+      </div>
+    </section>
+
+    <!-- 2. 출발 전광판 -->
+    <section class="scene s-board" data-scene="2">
+      <div class="board">
+        <header><span>DEPARTURES <em>출발</em></span><span class="muted">INCHEON · TERMINAL 2</span></header>
+        <div class="cols"><span>TIME</span><span>FLIGHT</span><span>DESTINATION</span><span>REMARKS</span></div>
+        <div class="rows" id="rows"></div>
+      </div>
+    </section>
+
+    <!-- 3. 점으로 된 지구 + 항로 -->
+    <section class="scene s-globe" data-scene="3">
+      <canvas id="globe"></canvas>
+      <div class="copy left">
+        <p class="eyebrow">SEOUL → TOKYO · 약 1,160 km</p>
+        <h2 class="serif">그 선은 서울과 도쿄를,<br>오늘과 내일을 <b>잇습니다.</b></h2>
+        <p class="route"><b>ICN → HND</b> <span>도쿄</span> <span id="km">0 KM</span></p>
+      </div>
+    </section>
+
+    <!-- 4. 하늘 + 비행기 -->
+    <section class="scene s-sky" data-scene="4">
+      <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div><div class="cloud c4"></div>
+      <div class="corner tl dark">TRIP 01&nbsp;&nbsp;ICN – HND</div>
+      <div class="corner tr dark">TOKYO&nbsp;&nbsp;1,160 KM</div>
+      <svg class="plane" viewBox="0 0 200 200" aria-hidden="true">
+        <defs><linearGradient id="trail" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".95"/></linearGradient></defs>
+        <path d="M-260 460 L78 122" stroke="url(#trail)" stroke-width="5" />
+        <path d="M-230 490 L106 154" stroke="url(#trail)" stroke-width="5" />
+        <g transform="rotate(45 100 100)" filter="drop-shadow(0 14px 10px rgba(0,40,90,.25))">
+          <path fill="#fff" d="M96 20 q4-12 8 0 l2 50 46 30 v10 l-46-14 -2 40 16 12 v7 l-20-6 -20 6 v-7 l16-12 -2-40 -46 14 v-10 l46-30z"/>
+          <path fill="#cfe3f7" d="M100 20 q4 -12 4 0 l2 50 v60 l-6 2z"/>
+        </g>
+      </svg>
+      <div class="copy words">
+        <h2 class="word"><span class="thin">더</span> <b id="word">쉽게</b></h2>
+        <p class="sub dark" id="wordEn">EASIER</p>
+      </div>
+    </section>
+
+    <!-- 5. 엔딩 로고 -->
+    <section class="scene s-end" data-scene="5">
+      <div class="logo">
+        <svg viewBox="0 0 120 120" class="mark" aria-hidden="true">
+          <circle cx="60" cy="60" r="56" fill="#0f1e4a"/>
+          <circle cx="60" cy="60" r="22" fill="#e8483b"/>
+          <path d="M8 74 Q60 52 112 74" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" class="draw"/>
+        </svg>
+        <div class="wordmark">
+          <strong>TOKYO TRIP</strong>
+          <span>도 쿄 여 행 노 트</span>
+        </div>
+      </div>
+      <div class="rule"></div>
+      <p class="tagline serif">Translate · Plan · Go</p>
+      <p class="tagline-ko">번역하고, 계획하고, 떠나요</p>
+      <a class="start" href="app.html">여행 시작하기 →</a>
+    </section>
+
+  </main>
+
+  <button id="skip" class="skip">건너뛰기</button>
+  <button id="replay" class="skip replay" hidden>다시 보기 ↺</button>
+  <script src="js/intro.js"></script>
+</body>
+</html>
