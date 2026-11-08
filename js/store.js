@@ -1,11 +1,16 @@
 // 저장소: Supabase가 설정돼 있으면 Supabase(DB), 아니면 브라우저(localStorage)에 저장
 // 앱 코드는 이 파일의 함수(list/add/update/remove)만 부르면 돼서, 어디에 저장되는지 신경 안 써도 됩니다.
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm";
-
 const cfg = window.APP_CONFIG || {};
-export const supabase =
-  cfg.SUPABASE_URL && cfg.SUPABASE_ANON_KEY ? createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY) : null;
-export const isDemo = !supabase;
+export const isDemo = !(cfg.SUPABASE_URL && cfg.SUPABASE_ANON_KEY);
+export let supabase = null;
+
+// Supabase 키가 있을 때만 라이브러리를 불러와요 (데모 모드는 인터넷 라이브러리 없이 동작)
+export async function init() {
+  if (isDemo || supabase) return supabase;
+  const { createClient } = await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm");
+  supabase = createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
+  return supabase;
+}
 
 const KEY = (t) => `tokyo-trip:${t}`;
 const readLocal = (t) => { try { return JSON.parse(localStorage.getItem(KEY(t)) || "[]"); } catch { return []; } };

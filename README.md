@@ -1,1 +1,7 @@
-# tokyo-trip-class
+# 도쿄 여행 일정관리 웹앱
+
+번역 · 일정 · 즐겨찾기 세 가지 기능의 도쿄 여행 웹앱입니다. 폰 홈 화면에 추가해서 앱처럼 써요.
+
+- `index.html` 인트로 → `app.html` 앱
+- `js/config.js`가 비어 있으면 **데모 모드**: 이 브라우저에만 저장, 예시 장소가 미리 들어가 있어요
+- Supabase · Google Maps 키를 `js/config.js`에 넣으면 실제 DB 저장과 구글 지도로 바뀌어요

@@ -3,91 +3,160 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Tokyo Trip</title>
-  <meta name="theme-color" content="#0f1e4a" />
+  <title>도쿄 여행</title>
+  <meta name="theme-color" content="#EEF7FF" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="도쿄 여행" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+JP:wght@500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/app.css" />
 </head>
 <body>
-  <header class="top">
-    <a href="index.html" class="brand" title="인트로 다시 보기">
-      <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="#0f1e4a"/><circle cx="60" cy="60" r="22" fill="#e8483b"/><path d="M8 74 Q60 52 112 74" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/></svg>
-      TOKYO TRIP
-    </a>
-    <div id="who" class="who"></div>
-  </header>
-
-  <div id="banner" class="banner" hidden></div>
+<div class="phone">
 
   <!-- 로그인 (Supabase 연결 시에만) -->
-  <section id="login" class="panel login" hidden>
-    <h2>로그인</h2>
-    <p>이메일로 로그인 링크를 보내드려요. 비밀번호 없이 메일 속 링크만 누르면 끝!</p>
-    <form id="loginForm" class="row">
-      <input type="email" id="email" placeholder="you@example.com" required />
-      <button class="btn primary">링크 받기</button>
-    </form>
-    <p id="loginMsg" class="hint"></p>
+  <section id="login" class="screen login" hidden>
+    <header class="top">
+      <span class="eyebrow">SAHMYOOK FRIENDS · TOKYO</span>
+      <h1>로그인</h1>
+    </header>
+    <div class="pad">
+      <div class="card">
+        <p>이메일로 로그인 링크를 보내드려요. 메일 속 링크만 누르면 끝!</p>
+        <form id="loginForm" class="row">
+          <label for="email" class="sr">이메일</label>
+          <input type="email" id="email" placeholder="you@example.com" required />
+          <button class="btn primary">링크 받기</button>
+        </form>
+        <p id="loginMsg" class="hint"></p>
+      </div>
+    </div>
   </section>
 
   <main id="app" hidden>
+
     <!-- ① 번역 -->
-    <section class="panel" data-tab="translate">
-      <h2>번역 <small>한국어 → 일본어</small></h2>
-      <div class="chips" id="phrases"></div>
-      <textarea id="koText" rows="3" placeholder="예) 이거 하나 주세요. 고수는 빼주세요."></textarea>
-      <div class="row">
-        <button class="btn primary" id="btnTranslate">번역하기</button>
-        <label class="btn ghost file">📷 메뉴판 사진
-          <input type="file" id="menuPhoto" accept="image/*" capture="environment" hidden />
-        </label>
+    <section class="screen" data-tab="translate">
+      <header class="top">
+        <div class="top-row">
+          <span class="eyebrow">SAHMYOOK FRIENDS · TOKYO</span>
+          <span class="dday" id="dday"></span>
+        </div>
+        <h1>번역 <small>한국어 → 일본어</small></h1>
+      </header>
+      <div class="pad stack">
+        <section class="card input-card">
+          <label for="koText" class="label">하고 싶은 말</label>
+          <textarea id="koText" rows="2" placeholder="예) 고수는 빼고, 덜 맵게 해주세요"></textarea>
+          <div class="row">
+            <button class="btn primary grow" id="btnTranslate">번역하기</button>
+            <label class="btn soft">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h2l2-2h6l2 2h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="4"/></svg>
+              메뉴판
+              <input type="file" id="menuPhoto" accept="image/*" capture="environment" hidden />
+            </label>
+          </div>
+        </section>
+
+        <section id="trResult" class="result" hidden></section>
+
+        <section class="stack-s">
+          <h2 class="label">자주 쓰는 말</h2>
+          <div class="chips" id="phrases"></div>
+        </section>
+
+        <section id="menuResult" class="card" hidden></section>
       </div>
-      <div id="trResult" class="card result" hidden></div>
-      <div id="menuResult" class="card" hidden></div>
     </section>
 
     <!-- ② 일정 -->
-    <section class="panel" data-tab="schedule" hidden>
-      <h2>일정</h2>
-      <div class="days" id="days"></div>
-      <div id="map" class="map"><div class="map-empty">지도 키를 넣으면 여기에 구글지도가 보여요<br><small>js/config.js → GOOGLE_MAPS_API_KEY</small></div></div>
-      <form id="addPlace" class="add">
-        <input id="plTime" type="time" aria-label="시간" />
-        <input id="plName" placeholder="장소 이름 (예: 시부야 스카이)" required />
-        <input id="plMemo" placeholder="메모 (선택)" />
-        <button class="btn primary">추가</button>
-      </form>
-      <ol id="dayList" class="list"></ol>
-      <a id="routeLink" class="btn ghost wide" target="_blank" rel="noopener" hidden>🗺️ 구글지도 앱에서 이 날 경로 보기</a>
+    <section class="screen" data-tab="schedule" hidden>
+      <header class="top">
+        <div class="top-row">
+          <span class="eyebrow">SAHMYOOK FRIENDS · TOKYO</span>
+          <span class="eyebrow" id="tripRange"></span>
+        </div>
+        <h1>일정</h1>
+        <div class="days" id="days" role="tablist" aria-label="날짜"></div>
+      </header>
+      <div class="pad stack">
+        <div id="map" class="map"></div>
+        <ol id="dayList" class="plan"></ol>
+        <form id="addPlace" class="card add" hidden>
+          <label for="plName" class="label">장소 추가</label>
+          <input id="plName" placeholder="장소 이름 (예: 시부야 스카이)" required />
+          <div class="row">
+            <label for="plTime" class="sr">시간</label>
+            <input id="plTime" type="time" />
+            <label for="plMemo" class="sr">메모</label>
+            <input id="plMemo" class="grow" placeholder="메모 (선택)" />
+          </div>
+          <div class="row">
+            <button type="button" class="btn soft grow" id="cancelPlace">취소</button>
+            <button class="btn primary grow">추가</button>
+          </div>
+        </form>
+        <div class="row" id="planActions">
+          <button class="btn dashed grow" id="openAddPlace">+ 장소 추가</button>
+          <a id="routeLink" class="btn primary grow" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h7a3.5 3.5 0 0 0 0-7H9a3.5 3.5 0 0 1 0-7h7"/></svg>
+            경로 보기
+          </a>
+        </div>
+      </div>
     </section>
 
     <!-- ③ 즐겨찾기 -->
-    <section class="panel" data-tab="favorites" hidden>
-      <h2>즐겨찾기 <small>가고 싶은 곳 막 저장!</small></h2>
-      <form id="addFav" class="add">
-        <input id="favName" placeholder="장소 이름 (예: 츠키지 장외시장)" required />
-        <input id="favMemo" placeholder="메모 (선택)" />
-        <button class="btn primary">저장</button>
-      </form>
-      <ul id="favList" class="list"></ul>
+    <section class="screen" data-tab="favorites" hidden>
+      <header class="top">
+        <span class="eyebrow">SAHMYOOK FRIENDS · TOKYO</span>
+        <h1>즐겨찾기 <small id="favCount">가고 싶은 곳</small></h1>
+        <form id="addFav" class="row">
+          <label for="favName" class="sr">장소 이름</label>
+          <input id="favName" class="grow" placeholder="가고 싶은 곳 이름 (예: 도쿄타워)" required />
+          <button class="btn primary">저장</button>
+        </form>
+      </header>
+      <div class="pad">
+        <ul id="favList" class="favs"></ul>
+      </div>
     </section>
   </main>
 
-  <nav class="tabs" id="tabs" hidden>
-    <button data-go="translate" class="on"><span>あ</span>번역</button>
-    <button data-go="schedule"><span>📅</span>일정</button>
-    <button data-go="favorites"><span>★</span>즐겨찾기</button>
+  <nav class="tabs" id="tabs" aria-label="메뉴" hidden>
+    <button data-go="translate" aria-current="page">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h8"/><path d="M8 3v2"/><path d="M5 11c2-1 5-4 6-6"/><path d="M6 6c1 3 3 5 5 6"/><path d="m13 21 4-9 4 9"/><path d="M14.5 18h5"/></svg>번역</button>
+    <button data-go="schedule">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18"/><path d="M8 3v4"/><path d="M16 3v4"/></svg>일정</button>
+    <button data-go="favorites">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2-5.5-2.9-5.5 2.9 1-6.2L3 9.6l6.2-.9z"/></svg>즐겨찾기</button>
   </nav>
+</div>
 
-  <!-- 크게 보여주기 (점원에게 화면 보여줄 때) -->
-  <div id="show" class="show" hidden></div>
-  <!-- Day 고르기 -->
-  <dialog id="dayPick"><form method="dialog"><h3>몇 일차에 넣을까요?</h3><div id="dayPickBtns" class="chips"></div><button class="btn ghost wide" value="">취소</button></form></dialog>
-  <div id="toast" class="toast"></div>
+<!-- 점원에게 보여주기 -->
+<div id="show" class="show" hidden></div>
 
-  <script src="js/config.js"></script>
-  <script type="module" src="js/app.js"></script>
+<!-- 몇 일차에 넣을까요? -->
+<div id="sheet" class="sheet-wrap" hidden>
+  <div class="sheet-back" data-close></div>
+  <section class="sheet" role="dialog" aria-label="일정에 추가">
+    <div class="grip"></div>
+    <div class="sheet-head">
+      <div class="thumb" id="sheetThumb"></div>
+      <div>
+        <div class="muted" id="sheetName"></div>
+        <h2>몇 일차에 넣을까요?</h2>
+      </div>
+    </div>
+    <div class="day-grid" id="sheetDays"></div>
+    <button class="btn big" id="sheetOk" disabled>날짜를 골라주세요</button>
+  </section>
+</div>
+
+<div id="toast" class="toast" role="status"></div>
+
+<script src="js/config.js"></script>
+<script type="module" src="js/app.js"></script>
 </body>
 </html>
